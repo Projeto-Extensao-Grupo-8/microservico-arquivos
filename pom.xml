@@ -14,12 +14,23 @@
 	<groupId>lotus.flor</groupId>
 	<artifactId>arquivo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>arquivo</name>
-	<description>Microserviço de upload com S3 + RabbitMQ</description>
 
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+
+	<!-- 🔥 AWS BOM -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>bom</artifactId>
+				<version>2.25.30</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 
@@ -35,7 +46,7 @@
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 
-		<!-- AWS S3 (SDK v2) -->
+		<!-- AWS S3 -->
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>s3</artifactId>
@@ -53,7 +64,7 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Testes -->
+		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -64,21 +75,10 @@
 
 	<build>
 		<plugins>
-
-			<!-- Plugin do Spring Boot -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
