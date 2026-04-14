@@ -1,5 +1,6 @@
 package lotus.flor.arquivo;
 
+import lotus.flor.arquivo.application.port.FileUploadPublisherPort;
 import lotus.flor.arquivo.application.usecase.UploadFileUseCase;
 import lotus.flor.arquivo.infrastructure.aws.S3StorageAdapter;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +28,7 @@ public class UploadApplication {
 	public UploadFileUseCase uploadFileUseCase(S3AsyncClient client,
 			@Value("${aws.s3.bucket}") String bucket) {
 		return new UploadFileUseCase(
-				new S3StorageAdapter(client, bucket)
-		);
+                (FileUploadPublisherPort) new S3StorageAdapter(client, bucket)
+        );
 	}
 }

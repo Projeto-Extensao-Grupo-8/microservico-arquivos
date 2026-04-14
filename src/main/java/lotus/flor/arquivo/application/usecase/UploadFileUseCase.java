@@ -1,16 +1,16 @@
 package lotus.flor.arquivo.application.usecase;
 
-import lotus.flor.arquivo.application.port.S3StoragePort;
+import lotus.flor.arquivo.application.port.FileUploadPublisherPort;
 import lotus.flor.arquivo.domain.model.FileUpload;
 
 import java.util.concurrent.CompletableFuture;
 
 public class UploadFileUseCase {
 
-    private final S3StoragePort storagePort;
+    private final FileUploadPublisherPort publisherPort;
 
-    public UploadFileUseCase(S3StoragePort storagePort) {
-        this.storagePort = storagePort;
+    public UploadFileUseCase(FileUploadPublisherPort publisherPort) {
+        this.publisherPort = publisherPort;
     }
 
     public CompletableFuture<String> execute(FileUpload fileUpload) {
@@ -19,6 +19,6 @@ public class UploadFileUseCase {
             throw new IllegalArgumentException("File name required");
         }
 
-        return storagePort.upload(fileUpload);
+        return publisherPort.publish(fileUpload);
     }
 }
