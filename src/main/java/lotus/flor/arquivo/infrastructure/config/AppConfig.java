@@ -2,10 +2,12 @@ package lotus.flor.arquivo.infrastructure.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lotus.flor.arquivo.application.port.FileUploadPublisherPort;
+import lotus.flor.arquivo.application.port.S3StoragePort;
 import lotus.flor.arquivo.application.usecase.GetFileByNameUseCase;
 import lotus.flor.arquivo.application.usecase.GetProfilePhotoUseCase;
 import lotus.flor.arquivo.application.usecase.UploadFileUseCase;
 import lotus.flor.arquivo.infrastructure.aws.S3DownloadAdapter;
+import lotus.flor.arquivo.infrastructure.aws.S3StorageAdapter;
 import lotus.flor.arquivo.infrastructure.messaging.RabbitMQPublisherAdapter;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,6 +35,15 @@ public class AppConfig {
                 RabbitConfig.EXCHANGE,
                 RabbitConfig.ROUTING_KEY
         );
+    }
+
+    // ── Storage ───────────────────────────────────────────────────────────────
+
+    @Bean
+    public S3StoragePort s3StoragePort(
+            S3AsyncClient s3AsyncClient,
+            @Value("${aws.s3.bucket}") String bucket) {
+        return new S3StorageAdapter(s3AsyncClient, bucket);
     }
 
     // ── Download ──────────────────────────────────────────────────────────────

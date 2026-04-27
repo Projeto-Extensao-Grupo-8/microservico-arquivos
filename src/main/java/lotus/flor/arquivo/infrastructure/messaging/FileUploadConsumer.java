@@ -5,7 +5,9 @@ import lotus.flor.arquivo.application.port.S3StoragePort;
 import lotus.flor.arquivo.domain.model.FileUpload;
 import lotus.flor.arquivo.infrastructure.messaging.dto.FileUploadMessage;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FileUploadConsumer {
 
     private final ObjectMapper objectMapper;
